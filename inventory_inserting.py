@@ -1,6 +1,7 @@
 import polars as pl
 import os
 import openpyxl
+import docker
 
 path_files = '/home/oem/Документы/Inventory/03.Март/'
 files_inv = os.listdir(path_files)
@@ -31,5 +32,6 @@ def insert_inv() -> pl.DataFrame:
                                     'Остаточная балансовая стоимость,руб.коп' ], orient="row")
     return df
 
-def df_divergence() -> pl.DataFrame:
+print(insert_inv())
+# def df_divergence() -> pl.DataFrame:
 
