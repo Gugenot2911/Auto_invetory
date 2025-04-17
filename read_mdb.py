@@ -45,6 +45,7 @@ def read_hw_inventory():
 
         query = f'SELECT {columns_str} FROM {table_to_select} WHERE {filter_condition}'
         df_pl = pl.read_database(query=query, connection=conn)
+        df_pl = df_pl.pivot(on='inventoryUnitType', index='SiteName', aggregate_function='len')
         df_pl.write_excel('temp/'+file_list[-1][:-8] + '.xlsx')
 
         print(f'DataFrame из таблицы {table_to_select, file_list[-1]}:')
@@ -60,6 +61,6 @@ def read_hw_inventory():
     del mdb_data
     del temp_mdb_file
 
-print(read_hw_inventory())
+read_hw_inventory()
 
 
