@@ -30,8 +30,9 @@ def insert_inv() -> pl.DataFrame:
                                     'системный',
                                     'Первоначальная стоимость, руб.коп',
                                     'Остаточная балансовая стоимость,руб.коп' ], orient="row")
+    # df.write_excel('inventory.xlsx')
     return df
 
-print(insert_inv())
+# print(insert_inv().to_dicts())
 # def df_divergence() -> pl.DataFrame:
 

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Реестр объектов - {{ filename }}{% endblock %}
+
+{% block content %}
+<h2>Реестр объектов <small>{{ filename }}</small></h2>
+
+<div class="summary">
+    <div>Всего объектов: {{ totals.count }}</div>
+    <div>Первоначальная стоимость: {{ totals.initial|float|round(2) }} руб.</div>
+    <div>Остаточная стоимость: {{ totals.residual|float|round(2) }} руб.</div>
+</div>
+
+<div class="filter-container">
+    <form method="post">
+        <input type="text" name="filter" value="{{ filter_text }}" placeholder="Поиск...">
+        <button type="submit">Поиск</button>
+        <a href="{{ url_for('show_table') }}">Сбросить</a>
+        <a href="{{ url_for('upload_file') }}">Новый файл</a>
+    </form>
+</div>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for key, value in record.items() %}
+                        {% if "стоимость" in key.lower() and value is number %}
+                            <td class="currency">{{ value|float|round(2) }}</td>
+                        {% else %}
+                            <td>{{ value }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
